@@ -2,9 +2,8 @@
 {
     public class WeatherForecastDTO
     {
-        public required string City { get; set; }
-        public required double Temperature { get; set; }
-        public required double Humidity { get; set; }
-        public required DateTime dateTime { get; set; }
+        public required string Date { get; set; }
+        public required string Weather { get; set; }
+        public double Temperature { get; set; }
     }
 }

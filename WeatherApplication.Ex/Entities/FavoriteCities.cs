@@ -8,13 +8,9 @@ namespace WeatherApplication.Ex.Entities
     {
         public int UserId { get; set; }
         public int CityId { get; set; }
-
         [ForeignKey(nameof(CityId))]
-        City? city { get; set; }
-
+        public City? City { get; set; }
         [ForeignKey(nameof(UserId))]
-        User? user { get; set; }
-
+        public User? User { get; set; }
     }
 }
-

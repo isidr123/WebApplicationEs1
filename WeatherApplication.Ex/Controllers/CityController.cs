@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WeatherApplication.Ex.DTO;
 using WeatherApplication.Ex.Entities;
 
@@ -8,40 +7,38 @@ namespace WeatherApplication.Ex.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class CityController : ControllerBase
     {
         private readonly WeatherDbContext ctx;
 
-        public UserController(WeatherDbContext ctx)
+        public CityController(WeatherDbContext ctx)
         {
             this.ctx = ctx;
         }
 
-
+        [HttpGet]
+        public IActionResult GetCities()
+        {
+            var cities = ctx.Cities.ToList();
+            return Ok(cities.Select(Mapper.MapEntityToDto).ToList());
+        }
 
         [HttpGet("{id}")]
-        public IActionResult GetUser(int id)
+        public IActionResult GetCity(int id)
         {
-            var user = ctx.Users.Include(u => u.FavoriteCities)
-                .ThenInclude(fc => fc.City)
-                .SingleOrDefault(u => u.Id == id);
-
-            if (user == null)
-            {
-                return NotFound($"User con ID: {id} non trovato");
-            }
-
-            return Ok(Mapper.MapEntityToDto(user));
+            var city = ctx.Cities.Find(id);
+            if (city == null) return NotFound();
+            return Ok(Mapper.MapEntityToDto(city));
         }
 
         [HttpPost]
-        public IActionResult Create(UserDTO dto)
+        public IActionResult Create(CityDTO dto)
         {
             try
             {
                 var entity = Mapper.MapDtoToEntity(dto);
-
-                ctx.Users.Add(entity);
+                entity.Id = 0;
+                ctx.Cities.Add(entity);
                 ctx.SaveChanges();
                 return Created("", Mapper.MapEntityToDto(entity));
             }
@@ -52,21 +49,15 @@ namespace WeatherApplication.Ex.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(UserDTO user)
+        public IActionResult Update(CityDTO city)
         {
             try
             {
-                var entity = ctx.Users.Include(u => u.FavoriteCities)
-                    .SingleOrDefault(u => u.Id == user.Id);
+                var entity = ctx.Cities.Find(city.Id);
                 if (entity == null) return BadRequest();
 
-                entity.Name = user.Name;
-                entity.Email = user.Email;
-                entity.FavoriteCities = user.FavoriteCities?.Select(fc => new FavoriteCities
-                {
-                    CityId = fc.Id,
-                    UserId = user.Id
-                }).ToList();
+                entity.Name = city.Name;
+                entity.Country = city.Country;
 
                 ctx.SaveChanges();
                 return Ok(Mapper.MapEntityToDto(entity));
@@ -82,9 +73,9 @@ namespace WeatherApplication.Ex.Controllers
         {
             try
             {
-                var entity = ctx.Users.Find(id);
+                var entity = ctx.Cities.Find(id);
                 if (entity == null) return BadRequest();
-                ctx.Users.Remove(entity);
+                ctx.Cities.Remove(entity);
                 ctx.SaveChanges();
                 return Ok();
             }

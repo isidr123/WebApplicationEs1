@@ -1,82 +1,56 @@
-﻿using WeatherApplication.Ex.Entities;
+﻿using WeatherApplication.Ex.DTO;
+using WeatherApplication.Ex.Entities;
 
-namespace WeatherApplication.Ex.DTO
+public static class Mapper
 {
-    public class Mapper
+    public static UserDTO MapEntityToDto(User user)
     {
-        public UserDTO MapEntityToDto(User entity)
+        return new UserDTO
         {
-            return new UserDTO
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email,
+            FavoriteCities = user.FavoriteCities?.Select(fc => new CityDTO
             {
-                Id = entity.Id,
-                Name = entity.Name,
-                Email = entity.Email,
-            };
-        }
-        public User MapDtoToEntity(UserDTO user)
-        {
-            return new User
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email
-            };
-        }
+                Id = fc.CityId,
+                Name = fc.City?.Name ?? "Undefined",
+                Country = fc.City?.Country ?? "Undefined"
+            }).ToList()
+        };
+    }
 
-        public CityDTO MapEntityToDto(City entity)
+    public static User MapDtoToEntity(UserDTO userDto)
+    {
+        return new User
         {
-            return new CityDTO
+            Id = userDto.Id,
+            Name = userDto.Name,
+            Email = userDto.Email,
+            FavoriteCities = userDto.FavoriteCities?.Select(fc => new FavoriteCities
             {
-                Id = entity.Id,
-                Name = entity.Name,
-                Country = entity.Country
-            };
-        }
-        public City MapDtoToEntity(CityDTO city)
-        {
-            return new City
-            {
-                Id = city.Id,
-                Name = city.Name,
-                Country = city.Country
-            };
-        }
-        public WeatherForecastDTO MapEntityToDto(WeatherForecast entity)
-        {
-            return new WeatherForecastDTO
-            {
-                City = entity.City,
-                dateTime = entity.date,
-                Humidity = entity.Humidity,
-                Temperature = entity.Temperature
-            };
-        }
-        public WeatherForecast MapDtoToEntity(WeatherForecastDTO weatherForecast)
-        {
-            return new WeatherForecast
-            {
-                City = weatherForecast.City,
-                date = weatherForecast.dateTime,
-                Humidity = weatherForecast.Humidity,
-                Temperature = weatherForecast.Temperature
-            };
-        }
+                CityId = fc.Id,
+                UserId = userDto.Id
+            }).ToList()
+        };
+    }
 
-        public FavoriteCitiesDTO MapEntityToDto(FavoriteCities entity)
+    public static CityDTO MapEntityToDto(City city)
+    {
+        return new CityDTO
         {
-            return new FavoriteCitiesDTO
-            {
-                CityId = entity.CityId,
-                UserId = entity.UserId
-            };
-        }
-        public FavoriteCities MapDtoToEntity(FavoriteCitiesDTO favoriteCities)
+            Id = city.Id,
+            Name = city.Name,
+            Country = city.Country
+        };
+    }
+
+    public static City MapDtoToEntity(CityDTO cityDto)
+    {
+        return new City
         {
-            return new FavoriteCities
-            {
-                CityId = favoriteCities.CityId,
-                UserId = favoriteCities.UserId
-            };
-        }
+            Id = cityDto.Id,
+            Name = cityDto.Name,
+            Country = cityDto.Country
+        };
     }
 }

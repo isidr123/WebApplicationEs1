@@ -7,8 +7,5 @@ namespace WeatherApplication.Ex.DTO
         public int Id { get; set; }
         public required string Name { get; set; }
         public required string Country { get; set; }
-
-        List<FavoriteCities>? favoriteCities { get; set; }
-
     }
 }

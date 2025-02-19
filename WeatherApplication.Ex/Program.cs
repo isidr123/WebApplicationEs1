@@ -12,7 +12,6 @@ builder.Services.AddOpenApi();
 string? connStr = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddSqlServer<WeatherDbContext>(connStr);
 
-builder.Services.AddSingleton<Mapper>();
 
 
 var app = builder.Build();
