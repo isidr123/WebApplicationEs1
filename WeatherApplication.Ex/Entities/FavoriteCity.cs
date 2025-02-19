@@ -14,6 +14,7 @@ namespace WeatherApplication.Ex.Entities
 
         [ForeignKey(nameof(UserId))]
         User? user { get; set; }
+
     }
 }
 
