@@ -24,6 +24,7 @@ namespace WeatherApplication.Ex.Controllers
             var result = ctx.Users.ToList().ConvertAll(mapper.MapEntityToDto);
             return Ok(result);
         }
+
         [HttpPost]
         public IActionResult Create(UserDTO dto) 
         {

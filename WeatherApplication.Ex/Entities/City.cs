@@ -6,7 +6,7 @@
         public required string Name { get; set; }
         public required string Country { get; set; }
 
-        List<WeatherForecast>? WeatherForecasts { get; set; }
+        List<FavoriteCities>? favoriteCities { get; set; }
     }
 
 }

@@ -4,7 +4,7 @@ using WeatherApplication.Ex.Entities;
 
 namespace WeatherApplication.Ex.DTO
 {
-    public class FavoriteCityDTO
+    public class FavoriteCitiesDTO
     {
         public int UserId { get; set; }
         public int CityId { get; set; }

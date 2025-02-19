@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WeatherApplication.Ex.Entities
 {
     [PrimaryKey(nameof(UserId), nameof(CityId))]
-    public class FavoriteCity
+    public class FavoriteCities
     {
         public int UserId { get; set; }
         public int CityId { get; set; }

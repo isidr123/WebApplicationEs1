@@ -10,7 +10,7 @@ namespace WeatherApplication.Ex.Entities
 
 public DbSet<City> Cities { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<FavoriteCity> FavoriteCities { get; set; }
+        public DbSet<FavoriteCities> FavoriteCities { get; set; }
         public DbSet<WeatherForecast> WeatherForecasts { get; set; }
 
     }

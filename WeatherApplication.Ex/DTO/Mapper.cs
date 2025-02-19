@@ -10,7 +10,7 @@ namespace WeatherApplication.Ex.DTO
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Email = entity.Email
+                Email = entity.Email,
             };
         }
         public User MapDtoToEntity(UserDTO user)
@@ -39,6 +39,43 @@ namespace WeatherApplication.Ex.DTO
                 Id = city.Id,
                 Name = city.Name,
                 Country = city.Country
+            };
+        }
+        public WeatherForecastDTO MapEntityToDto(WeatherForecast entity)
+        {
+            return new WeatherForecastDTO
+            {
+                City = entity.City,
+                dateTime = entity.date,
+                Humidity = entity.Humidity,
+                Temperature = entity.Temperature
+            };
+        }
+        public WeatherForecast MapDtoToEntity(WeatherForecastDTO weatherForecast)
+        {
+            return new WeatherForecast
+            {
+                City = weatherForecast.City,
+                date = weatherForecast.dateTime,
+                Humidity = weatherForecast.Humidity,
+                Temperature = weatherForecast.Temperature
+            };
+        }
+
+        public FavoriteCitiesDTO MapEntityToDto(FavoriteCities entity)
+        {
+            return new FavoriteCitiesDTO
+            {
+                CityId = entity.CityId,
+                UserId = entity.UserId
+            };
+        }
+        public FavoriteCities MapDtoToEntity(FavoriteCitiesDTO favoriteCities)
+        {
+            return new FavoriteCities
+            {
+                CityId = favoriteCities.CityId,
+                UserId = favoriteCities.UserId
             };
         }
     }
