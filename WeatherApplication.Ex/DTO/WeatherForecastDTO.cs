@@ -1,0 +1,10 @@
+﻿namespace WeatherApplication.Ex.DTO
+{
+    public class WeatherForecastDTO
+    {
+        public required string City { get; set; }
+        public required double Temperature { get; set; }
+        public required double Humidity { get; set; }
+        public required DateTime dateTime { get; set; }
+    }
+}
